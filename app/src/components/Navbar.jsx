@@ -1,36 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './App.css';
+import { FaChevronDown } from 'react-icons/fa';
 
 const Navbar = () => {
+  const [dropdown, setDropdown] = useState(false);
+
+  const toggleDropdown = () => setDropdown(!dropdown);
+
   return (
-    <>
-    <div className='bg-white shadow-lg flex justify-between items-center px-16 py-7'>
-       <div className='flex justify-between items-center text-center'>
-            <div>
-                <a href="">
-                <img className='w-16' src="./public/logo.png" alt="" />
-                </a>
-            </div>
+    <nav className="navbar">
+      <div className="logo">
+        <Link to="/">
+          <img src="/logo.png" alt="" />
+        </Link>
+      </div>
+      <ul className="nav-links">
+        <li>
+          <div className="dropdown" onMouseEnter={toggleDropdown} onMouseLeave={toggleDropdown}>
+            <span className="dropdown-title">
+              Service Portfolio <FaChevronDown className="chevron-icon" />
+            </span>
+            {dropdown && (
+              <div className="dropdown-content">
+                <Link to="/domestic-logistics">Domestic Logistics</Link>
+                <Link to="/corporate-logistics">Corporate Logistics</Link>
+                <Link to="/overseas-shipping">Overseas Shipping</Link>
+                <Link to="/ecommerce-logistics">Ecommerce Logistics</Link>
+                <Link to="/wallet-services">Wallet and Added Services</Link>
+              </div>
+            )}
+          </div>
+        </li>
+        <li><Link to="/offices">Our Offices</Link></li>
+        <li><Link to="/blog">Blog</Link></li>
+        <li><Link to="/faqs">FAQs</Link></li>
+        <li><Link to="/about-us">About Us</Link></li>
+      </ul>
+      <div className="auth-buttons">
+        <Link to="/signin" className="signin-btn">Sign In/Sign Up</Link>
+      </div>
+    </nav>
+  );
+};
 
-            <div className='space-x-6 mx-40 text-sm text-gray-800'>
-                <a href="" className='navbar-link text-gray-800'>Service Portfolio</a>
-                <a href="" className='text-gray-800'>Our Services</a>
-                <a href="" className='text-gray-800'>Blog</a>
-                <a href="" className='text-gray-800'>FAQs</a>
-                <a href="" className='text-gray-800'>About Us</a>
-            </div>
-       </div>
-
-       <div>
-            <button className='bg-red-600 text-white px-2 py-2 rounded'>
-                Sign in/Sign up
-            </button>
-       </div>
-    </div>
-    
-    
-    
-    </>
-  )
-}
-
-export default Navbar
+export default Navbar;
